@@ -19,6 +19,15 @@ jobs:
     - name: Install lftp
       run: sudo apt-get update && sudo apt-get install -y lftp
 
+    - name: Add SSH Host Key
+      env:
+        SFTP_HOST: ${{ secrets.SFTP_HOST }}
+        SFTP_PORT: ${{ secrets.SFTP_PORT }}
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan -p $SFTP_PORT $SFTP_HOST >> ~/.ssh/known_hosts
+        chmod 600 ~/.ssh/known_hosts
+
     - name: Push files via SFTP
       env:
         SFTP_HOST: ${{ secrets.SFTP_HOST }}
