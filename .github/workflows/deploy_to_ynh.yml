@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  validate-html:
+  deploy-ynh:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,7 +26,7 @@ jobs:
         SFTP_USER: ${{ secrets.SFTP_USER }}
         SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
       run: |
-        lftp -u "$SFTP_USER","$SFTP_PASSWORD" "$SFTP_HOST" <<EOF
+        lftp -u "$SFTP_USER","$SFTP_PASSWORD" -p $SFTP_PORT sftp://$SFTP_HOST <<EOF
         mirror -R ./ /www/
         bye
         EOF
