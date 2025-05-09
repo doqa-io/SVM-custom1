@@ -1,44 +1,177 @@
-/* Basic styles for the web page */
+/* Theme Variables Default (Dark) */
+:root {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --accent-color: #007bff;
+  --font-body: 'Open Sans', sans-serif;
+  --font-heading: 'IBM Plex Mono', monospace;
+}
+
+/* Light Theme Overrides */
+[data-theme="light"] {
+  --bg-color: #ffffff;
+  --text-color: #121212;
+  --accent-color: #007bff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-    background-color: #f4f4f9;
-    color: #333;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  min-height: 100vh;
 }
 
-header {
-    background: #333;
-    color: #fff;
-    padding: 1rem 0;
-    text-align: center;
+a {
+  text-decoration: none;
+  color: var(--accent-color);
 }
 
-header h1 {
-    margin: 0;
-    font-size: 2.5rem;
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(0, 0, 0, 0.5);
 }
 
-main {
-    padding: 2rem;
+/* Enhanced Theme Toggle Button */
+.nav .theme-toggle {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-section {
-    margin-bottom: 2rem;
+.nav .theme-toggle:hover {
+  background-color: var(--text-color);
+  color: var(--bg-color);
 }
 
-h2 {
-    color: #444;
+.logo {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--accent-color);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+}
+
+.nav-links li {
+  margin-left: 1.5rem;
+}
+
+.nav-links a {
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: var(--text-color);
+}
+
+.hero {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.hero h1 {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--accent-color);
+  border-radius: 9999px;
+  font-weight: bold;
+  transition: background 0.3s, color 0.3s;
+}
+
+.btn:hover {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+}
+
+.projects {
+  padding: 2rem;
+}
+
+.projects h2 {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.project-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h3 {
+  font-family: var(--font-heading);
+  margin-bottom: 0.5rem;
+}
+
+.card .tech {
+  font-size: 0.875rem;
+  font-style: italic;
+  margin-bottom: 0.75rem;
+}
+
+.card .desc {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card-link {
+  font-weight: bold;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s;
+}
+
+.card-link:hover {
+  border-color: var(--accent-color);
 }
 
 footer {
-    background: #333;
-    color: #fff;
-    text-align: center;
-    padding: 1rem 0;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.875rem;
+}
+
+footer a:hover {
+  text-decoration: underline;
 }
