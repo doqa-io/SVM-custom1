@@ -40,12 +40,16 @@ jobs:
         bye
         EOF
 
-        - name: Wait for manual approval
-          uses: hmarr/auto-approve-action@v2
-          with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          
+  manual-review:
+    needs: deploy-ynh-dev
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Manual Review
+      run: echo "Manual review required. This step will later be replaced by automated testing."
+
   deploy-ynh-prod:
+    needs: manual-review
     runs-on: ubuntu-latest
 
     steps:
