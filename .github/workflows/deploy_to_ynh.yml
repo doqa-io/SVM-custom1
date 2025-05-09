@@ -9,7 +9,43 @@ on:
       - main
 
 jobs:
-  deploy-ynh:
+  deploy-ynh-dev:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install lftp
+      run: sudo apt-get update && sudo apt-get install -y lftp
+
+    - name: Add SSH Host Key
+      env:
+        SFTP_HOST: ${{ secrets.SFTP_HOST_DEV }}
+        SFTP_PORT: ${{ secrets.SFTP_PORT }}
+      run: |
+        mkdir -p ~/.ssh
+        ssh-keyscan -p $SFTP_PORT $SFTP_HOST >> ~/.ssh/known_hosts
+        chmod 600 ~/.ssh/known_hosts
+
+    - name: Push files via SFTP
+      env:
+        SFTP_HOST: ${{ secrets.SFTP_HOST_DEV }}
+        SFTP_PORT: ${{ secrets.SFTP_PORT }}
+        SFTP_USER: ${{ secrets.SFTP_USER_DEV }}
+        SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+      run: |
+        lftp -u "$SFTP_USER","$SFTP_PASSWORD" -p $SFTP_PORT sftp://$SFTP_HOST <<EOF
+        mirror -R ./ /www/
+        bye
+        EOF
+
+        - name: Wait for manual approval
+          uses: hmarr/auto-approve-action@v2
+          with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          
+  deploy-ynh-prod:
     runs-on: ubuntu-latest
 
     steps:
